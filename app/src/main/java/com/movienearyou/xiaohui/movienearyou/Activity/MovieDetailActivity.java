@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -39,6 +41,8 @@ import com.movienearyou.xiaohui.movienearyou.R;
 import com.movienearyou.xiaohui.movienearyou.Util.ViewUtil;
 import com.movienearyou.xiaohui.movienearyou.Views.CastCard;
 import com.movienearyou.xiaohui.movienearyou.Views.SimilarCard;
+import com.movienearyou.xiaohui.movienearyou.model.channels.Channel;
+import com.movienearyou.xiaohui.movienearyou.model.channels.Format;
 import com.movienearyou.xiaohui.movienearyou.model.credit.Cast;
 import com.movienearyou.xiaohui.movienearyou.model.credit.Credit;
 import com.movienearyou.xiaohui.movienearyou.model.credit.Crew;
@@ -103,6 +107,9 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
     private LinearLayout showtimeView;
     private LinearLayout creditWrapper;
     private LinearLayout similarWrapper;
+    private LinearLayout channelWrapper;
+    private ImageView channelLogo;
+    private LinearLayout channelTextWrapper;
 
     public static void launchActivity(Activity fromActivity, Result movie){
         Intent intent = new Intent(fromActivity, MovieDetailActivity.class);
@@ -150,6 +157,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
 
         creditWrapper = (LinearLayout) findViewById(R.id.creditWrapper);
         similarWrapper = (LinearLayout) findViewById(R.id.similarWrapper);
+        channelWrapper = (LinearLayout) findViewById(R.id.channel);
 
         poster = (ImageView) findViewById(R.id.poster);
         title = (TextView) findViewById(R.id.title);
@@ -157,6 +165,9 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         releaseDate = (TextView) findViewById(R.id.releaseDate);
         lan = (TextView) findViewById(R.id.lan);
         description = (TextView) findViewById(R.id.description);
+
+        channelLogo = (ImageView) findViewById(R.id.channelLogo);
+        channelTextWrapper = (LinearLayout) findViewById(R.id.channelTextWrapper);
 
         mToolbarView.setNavigationIcon(R.drawable.back);
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
@@ -168,6 +179,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         getVideos();
         getCredit();
         getSimilar();
+        getChannels();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
@@ -225,10 +237,39 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         moviesGateway.getSimilar(movie.getId().toString(), new Callback<Movies>() {
             @Override
             public void success(Movies movies, Response response) {
-                for(Result movie : movies.getResults()){
+                for (Result movie : movies.getResults()) {
                     SimilarCard similarCard = new SimilarCard(MovieDetailActivity.this);
                     similarCard.loadData(movie);
                     similarWrapper.addView(similarCard);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+    }
+
+    private void getChannels(){
+        MoviesGateway moviesGateway = RestClient.getMoviesGateway();
+        moviesGateway.getAvilableOn(movie.getId().toString(), new Callback<ArrayList<Channel>>() {
+            @Override
+            public void success(ArrayList<Channel> channels, Response response) {
+                if(channels.size() == 0) return;
+                channelWrapper.setVisibility(View.VISIBLE);
+                Resources resources = getResources();
+                final int resourceId = resources.getIdentifier(channels.get(0).getSource(), "drawable",
+                        getPackageName());
+                Picasso.with(MovieDetailActivity.this).load(resourceId).into(channelLogo);
+
+                for(Format format : channels.get(0).getFormats()) {
+                    TextView tv = new TextView(MovieDetailActivity.this);
+                    tv.setPadding(10, 5, 10, 5);
+                    tv.setTextSize(10);
+                    tv.setText(Html.fromHtml(format.getPrice()+"$<br/><font color='#8e8e8e'>&nbsp;"+format.getFormat()+"</font><br><font color='#8e8e8e'>"+format.getType()+"</font>"));
+                    tv.setTextColor(getResources().getColor(R.color.steel));
+                    channelTextWrapper.addView(tv);
                 }
             }
 

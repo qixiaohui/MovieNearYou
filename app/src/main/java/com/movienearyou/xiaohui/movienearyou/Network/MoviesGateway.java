@@ -4,6 +4,7 @@ package com.movienearyou.xiaohui.movienearyou.Network;
  * Created by TQi on 7/23/16.
  */
 
+import com.movienearyou.xiaohui.movienearyou.model.channels.Channel;
 import com.movienearyou.xiaohui.movienearyou.model.credit.Credit;
 import com.movienearyou.xiaohui.movienearyou.model.movies.Movies;
 import com.movienearyou.xiaohui.movienearyou.model.showtime.Showtime;
@@ -36,5 +37,8 @@ public interface MoviesGateway {
 
     @GET("/movie/similar/{id}")
     void getSimilar(@Path("id") String id, retrofit.Callback<Movies> callback);
+
+    @GET("/schedule/avilableon/webpurchase/{id}")
+    void getAvilableOn(@Path("id") String id, retrofit.Callback<ArrayList<Channel>> callback);
 
 }

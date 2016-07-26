@@ -46,4 +46,8 @@
     <dimen name="similarImageWidth">80dp</dimen>
     <dimen name="similarImageHeight">120dp</dimen>
     <dimen name="similarContainerMarginVerti">5dp</dimen>
+
+    <dimen name="channelLogoWidth">50dp</dimen>
+    <dimen name="channelLogoHeight">50dp</dimen>
+    <dimen name="channelRowMarginHori">5dp</dimen>
 </resources>

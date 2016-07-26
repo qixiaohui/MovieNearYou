@@ -44,6 +44,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <include
+                    layout="@layout/channel_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <include
                     layout="@layout/cast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
