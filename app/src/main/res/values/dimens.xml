@@ -1,0 +1,49 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="movie_card_width">90dp</dimen>
+    <dimen name="movie_card_height">150dp</dimen>
+    <dimen name="movieTitleFont">12sp</dimen>
+    <dimen name="headerImageHeight">200dp</dimen>
+
+    <dimen name="infoCardHeight">290dp</dimen>
+
+    <dimen name="posterWidth">120dp</dimen>
+    <dimen name="posterMaxHeight">170dp</dimen>
+    <dimen name="posterTextSize">16sp</dimen>
+    <dimen name="infoText">13sp</dimen>
+    <dimen name="videoDesc">10sp</dimen>
+    <dimen name="posterMarginTop">15dp</dimen>
+    <dimen name="posterMarginHori">10dp</dimen>
+
+    <dimen name="infoCardMarginTop">15dp</dimen>
+    <dimen name="titleMarginTop">5dp</dimen>
+    <dimen name="infoBoxMarginHori">5dp</dimen>
+    <dimen name="infoTextMarginVerti">5dp</dimen>
+
+    <dimen name="videoContainerWidth">150dp</dimen>
+    <dimen name="videoWidth">140dp</dimen>
+    <dimen name="videoHeight">80dp</dimen>
+    <dimen name="videoContainerMarginHori">5dp</dimen>
+
+    <dimen name="playBtnMargin">25dp</dimen>
+    <dimen name="playBtnSize">30dp</dimen>
+    <dimen name="showtimeMarginHori">10dp</dimen>
+    <dimen name="showtimeTextMargin">10dp</dimen>
+    <dimen name="showtimeTextSize">15sp</dimen>
+
+    <dimen name="castContainerWidth">90dp</dimen>
+    <dimen name="castImageWidth">80dp</dimen>
+    <dimen name="castImageHeight">90dp</dimen>
+    <dimen name="castContainerMarginVerti">5dp</dimen>
+
+    <dimen name="similarContainerWidth">90dp</dimen>
+    <dimen name="similarImageWidth">80dp</dimen>
+    <dimen name="similarImageHeight">120dp</dimen>
+    <dimen name="similarContainerMarginVerti">5dp</dimen>
+</resources>

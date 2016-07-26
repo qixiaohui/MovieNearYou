@@ -1,0 +1,29 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_marginLeft="@dimen/castContainerMarginVerti"
+        android:layout_marginRight="@dimen/castContainerMarginVerti"
+        android:layout_width="@dimen/castContainerWidth"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/actorImage"
+            android:scaleType="centerCrop"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="@dimen/castImageWidth"
+            android:layout_height="@dimen/castImageHeight" />
+        <TextView
+            android:textSize="@dimen/videoDesc"
+            android:textColor="@color/steel"
+            android:textAlignment="center"
+            android:lines="2"
+            android:ellipsize="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/actorImage"
+            android:id="@+id/actorName" />
+    </RelativeLayout>
+</LinearLayout>

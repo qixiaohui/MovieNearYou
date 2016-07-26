@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/vert_border_bg"
+    android:layout_marginBottom="30dp"
+    android:orientation="vertical">
+    <TextView
+        android:textColor="@color/cement"
+        android:textSize="@dimen/posterTextSize"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/videos" />
+    <HorizontalScrollView
+        android:id="@+id/videoGallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_marginLeft="10dp"
+        android:measureAllChildren="false"
+        android:scrollbars="horizontal" >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_marginLeft="@dimen/videoContainerMarginHori"
+                    android:layout_marginRight="@dimen/videoContainerMarginHori"
+                    android:layout_width="@dimen/videoContainerWidth"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/screenshot1"
+                        android:scaleType="centerCrop"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="@dimen/videoWidth"
+                        android:layout_height="@dimen/videoHeight" />
+                    <ImageView
+                        android:layout_width="@dimen/playBtnSize"
+                        android:layout_height="@dimen/playBtnSize"
+                        android:src="@drawable/play"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/playBtnMargin" />
+                    <TextView
+                        android:textSize="@dimen/videoDesc"
+                        android:textColor="@color/steel"
+                        android:textAlignment="center"
+                        android:lines="2"
+                        android:ellipsize="end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/screenshot1"
+                        android:id="@+id/videoTitle1" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_marginLeft="@dimen/videoContainerMarginHori"
+                    android:layout_marginRight="@dimen/videoContainerMarginHori"
+                    android:layout_width="@dimen/videoContainerWidth"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/screenshot2"
+                        android:scaleType="centerCrop"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="@dimen/videoWidth"
+                        android:layout_height="@dimen/videoHeight" />
+                    <ImageView
+                        android:layout_width="@dimen/playBtnSize"
+                        android:layout_height="@dimen/playBtnSize"
+                        android:src="@drawable/play"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/playBtnMargin" />
+                    <TextView
+                        android:textSize="@dimen/videoDesc"
+                        android:textColor="@color/steel"
+                        android:lines="2"
+                        android:ellipsize="end"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/screenshot2"
+                        android:id="@+id/videoTitle2" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_marginLeft="@dimen/videoContainerMarginHori"
+                    android:layout_marginRight="@dimen/videoContainerMarginHori"
+                    android:layout_width="@dimen/videoContainerWidth"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/screenshot3"
+                        android:layout_alignParentTop="true"
+                        android:scaleType="centerCrop"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="@dimen/videoWidth"
+                        android:layout_height="@dimen/videoHeight" />
+                    <ImageView
+                        android:layout_width="@dimen/playBtnSize"
+                        android:layout_height="@dimen/playBtnSize"
+                        android:src="@drawable/play"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/playBtnMargin" />
+                    <TextView
+                        android:textSize="@dimen/videoDesc"
+                        android:textColor="@color/steel"
+                        android:textAlignment="center"
+                        android:lines="2"
+                        android:ellipsize="end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/screenshot3"
+                        android:id="@+id/videoTitle3" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_marginLeft="@dimen/videoContainerMarginHori"
+                    android:layout_marginRight="@dimen/videoContainerMarginHori"
+                    android:layout_width="@dimen/videoContainerWidth"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/screenshot4"
+                        android:layout_alignParentTop="true"
+                        android:scaleType="centerCrop"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="@dimen/videoWidth"
+                        android:layout_height="@dimen/videoHeight" />
+                    <ImageView
+                        android:layout_width="@dimen/playBtnSize"
+                        android:layout_height="@dimen/playBtnSize"
+                        android:src="@drawable/play"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/playBtnMargin" />
+                    <TextView
+                        android:textSize="@dimen/videoDesc"
+                        android:textColor="@color/steel"
+                        android:textAlignment="center"
+                        android:lines="2"
+                        android:ellipsize="end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/screenshot4"
+                        android:id="@+id/videoTitle4" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_marginLeft="@dimen/videoContainerMarginHori"
+                    android:layout_marginRight="@dimen/videoContainerMarginHori"
+                    android:layout_width="@dimen/videoContainerWidth"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/screenshot5"
+                        android:scaleType="centerCrop"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="@dimen/videoWidth"
+                        android:layout_height="@dimen/videoHeight" />
+                    <ImageView
+                        android:layout_width="@dimen/playBtnSize"
+                        android:layout_height="@dimen/playBtnSize"
+                        android:src="@drawable/play"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/playBtnMargin" />
+                    <TextView
+                        android:textSize="@dimen/videoDesc"
+                        android:textColor="@color/steel"
+                        android:textAlignment="center"
+                        android:lines="2"
+                        android:ellipsize="end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/screenshot5"
+                        android:id="@+id/videoTitle5" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>

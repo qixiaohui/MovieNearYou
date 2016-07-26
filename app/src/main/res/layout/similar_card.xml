@@ -1,0 +1,29 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_marginLeft="@dimen/similarContainerMarginVerti"
+        android:layout_marginRight="@dimen/similarContainerMarginVerti"
+        android:layout_width="@dimen/similarContainerWidth"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/similarPoster"
+            android:scaleType="centerCrop"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="@dimen/similarImageWidth"
+            android:layout_height="@dimen/similarImageHeight" />
+        <TextView
+            android:textSize="@dimen/videoDesc"
+            android:textColor="@color/cement"
+            android:textAlignment="center"
+            android:lines="2"
+            android:ellipsize="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/similarPoster"
+            android:id="@+id/similarTitle" />
+    </RelativeLayout>
+</LinearLayout>

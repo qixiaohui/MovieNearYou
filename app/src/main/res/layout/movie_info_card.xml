@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginTop="15dp"
+    android:paddingTop="15dp"
+    android:layout_height="@dimen/infoCardHeight"
+    android:background="@drawable/vert_border_bg"
+    android:id="@+id/detailInfo">
+    <ImageView
+        android:id="@+id/poster"
+        android:layout_marginTop="@dimen/posterMarginTop"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/posterMarginHori"
+        android:layout_marginRight="@dimen/posterMarginHori"
+        android:layout_alignParentTop="true"
+        android:scaleType="center"
+        android:layout_height="wrap_content"
+        android:layout_width="@dimen/posterWidth" />
+    <RelativeLayout
+        android:id="@+id/infoCard"
+        android:layout_marginTop="@dimen/infoCardMarginTop"
+        android:layout_marginLeft="@dimen/infoBoxMarginHori"
+        android:layout_marginRight="@dimen/infoBoxMarginHori"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/poster"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true">
+        <TextView
+            android:textColor="@color/steel"
+            android:id="@+id/title"
+            android:textSize="@dimen/posterTextSize"
+            android:layout_marginTop="@dimen/titleMarginTop"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+        <TextView
+            android:id="@+id/rate"
+            android:layout_marginBottom="@dimen/infoTextMarginVerti"
+            android:textSize="@dimen/infoText"
+            android:textColor="@color/cement"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/title" />
+        <TextView
+            android:id="@+id/releaseDate"
+            android:textSize="@dimen/infoText"
+            android:textColor="@color/cement"
+            android:layout_marginBottom="@dimen/infoTextMarginVerti"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/rate" />
+        <TextView
+            android:id="@+id/lan"
+            android:textSize="@dimen/infoText"
+            android:textColor="@color/cement"
+            android:layout_marginBottom="@dimen/infoTextMarginVerti"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/releaseDate" />
+        <TextView
+            android:id="@+id/description"
+            android:textColor="@color/cement"
+            android:layout_marginBottom="@dimen/infoTextMarginVerti"
+            android:textSize="@dimen/infoText"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:maxLines="7"
+            android:ellipsize="end"
+            android:layout_below="@id/lan" />
+    </RelativeLayout>
+</RelativeLayout>
