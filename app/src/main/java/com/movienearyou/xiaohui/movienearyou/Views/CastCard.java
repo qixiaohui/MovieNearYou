@@ -23,6 +23,7 @@ public class CastCard extends LinearLayout implements View.OnClickListener {
     private ImageView crewImage;
     private TextView actorName;
     private Context context;
+    private Cast cast;
 
     public CastCard(Context context){
         this(context, null);
@@ -40,10 +41,19 @@ public class CastCard extends LinearLayout implements View.OnClickListener {
     }
 
     public void loadData(Cast cast){
+        this.cast = cast;
         crewImage = (ImageView) this.findViewById(R.id.actorImage);
         actorName = (TextView) this.findViewById(R.id.actorName);
-        Picasso.with(context).load("https://image.tmdb.org/t/p/w132_and_h132_bestv2/"+cast.getProfilePath()).into(crewImage);
+        if(cast.getProfilePath() != null) {
+            Picasso.with(context).load("https://image.tmdb.org/t/p/w132_and_h132_bestv2/" + cast.getProfilePath()).into(crewImage);
+        }else{
+            Picasso.with(context).load(R.drawable.avatar).into(crewImage);
+        }
         actorName.setText(Html.fromHtml(cast.getName()+"<br/>as <font color='#8e8e8e'>"+cast.getCharacter()+"</font>"));
+    }
+
+    public Cast getData(){
+        return cast;
     }
 
     @Override

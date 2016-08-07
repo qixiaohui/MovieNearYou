@@ -46,6 +46,16 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
             </LinearLayout>
+            <TextView
+                android:id="@+id/channelTag"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:textSize="13sp"
+                android:textColor="@color/cement"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </RelativeLayout>
         <LinearLayout
             android:layout_width="fill_parent"
@@ -59,7 +69,7 @@
             android:textAlignment="center"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:id="@+id/showtimeViewAll"
+            android:id="@+id/channelViewAll"
             android:textColor="@color/colorPrimary"
             android:text="@string/viewAll" />
     </LinearLayout>

@@ -10,20 +10,26 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +41,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
+import com.movienearyou.xiaohui.movienearyou.Fragment.CastDetailFragment;
 import com.movienearyou.xiaohui.movienearyou.Network.MoviesGateway;
 import com.movienearyou.xiaohui.movienearyou.Network.RestClient;
 import com.movienearyou.xiaohui.movienearyou.R;
@@ -57,6 +64,7 @@ import com.squareup.okhttp.internal.Util;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -68,8 +76,9 @@ import retrofit.client.Response;
 /**
  * Created by TQi on 7/23/16.
  */
-public class MovieDetailActivity extends AppCompatActivity implements ObservableScrollViewCallbacks, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MovieDetailActivity extends AppCompatActivity implements ObservableScrollViewCallbacks, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener{
     private static final String TAG = "MovieDetailActivity";
+    public static final String CAST="CAST";
     private Toolbar toolbar;
     private ImageView mImageView;
     private Toolbar mToolbarView;
@@ -108,8 +117,11 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
     private LinearLayout creditWrapper;
     private LinearLayout similarWrapper;
     private LinearLayout channelWrapper;
+    private RelativeLayout channelWrapperRelative;
+    private TextView channelTag;
     private ImageView channelLogo;
     private LinearLayout channelTextWrapper;
+    private TextView channelViewAll;
 
     public static void launchActivity(Activity fromActivity, Result movie){
         Intent intent = new Intent(fromActivity, MovieDetailActivity.class);
@@ -158,6 +170,9 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         creditWrapper = (LinearLayout) findViewById(R.id.creditWrapper);
         similarWrapper = (LinearLayout) findViewById(R.id.similarWrapper);
         channelWrapper = (LinearLayout) findViewById(R.id.channel);
+        channelWrapperRelative = (RelativeLayout) findViewById(R.id.channelWrapper);
+        channelTag = (TextView) findViewById(R.id.channelTag);
+        channelViewAll = (TextView) findViewById(R.id.channelViewAll);
 
         poster = (ImageView) findViewById(R.id.poster);
         title = (TextView) findViewById(R.id.title);
@@ -219,9 +234,23 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
             @Override
             public void success(Credit credit, Response response) {
                 for (Cast cast : credit.getCast()) {
-                    CastCard castCard = new CastCard(MovieDetailActivity.this);
+                    final CastCard castCard = new CastCard(MovieDetailActivity.this);
                     castCard.loadData(cast);
                     creditWrapper.addView(castCard);
+                    castCard.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(CAST, new Gson().toJson(castCard.getData()));
+                            FragmentManager fm = getSupportFragmentManager();
+
+                            FragmentTransaction ft = fm.beginTransaction();
+                            CastDetailFragment castDetailFragment = new CastDetailFragment();
+                            castDetailFragment.setArguments(bundle);
+                            ft.add(castDetailFragment, null);
+                            ft.commit();
+                        }
+                    });
                 }
             }
 
@@ -237,10 +266,17 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         moviesGateway.getSimilar(movie.getId().toString(), new Callback<Movies>() {
             @Override
             public void success(Movies movies, Response response) {
-                for (Result movie : movies.getResults()) {
+                for (final Result movie : movies.getResults()) {
                     SimilarCard similarCard = new SimilarCard(MovieDetailActivity.this);
                     similarCard.loadData(movie);
                     similarWrapper.addView(similarCard);
+
+                    similarCard.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            MovieDetailActivity.launchActivity(MovieDetailActivity.this, movie);
+                        }
+                    });
                 }
             }
 
@@ -255,9 +291,15 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         MoviesGateway moviesGateway = RestClient.getMoviesGateway();
         moviesGateway.getAvilableOn(movie.getId().toString(), new Callback<ArrayList<Channel>>() {
             @Override
-            public void success(ArrayList<Channel> channels, Response response) {
-                if(channels.size() == 0) return;
+            public void success(final ArrayList<Channel> channels, Response response) {
+                if(channels == null || channels.size() == 0) return;
                 channelWrapper.setVisibility(View.VISIBLE);
+                channelWrapperRelative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ViewUtil.intentChooser(MovieDetailActivity.this, new Intent(Intent.ACTION_VIEW, Uri.parse(channels.get(0).getLink())));
+                    }
+                });
                 Resources resources = getResources();
                 final int resourceId = resources.getIdentifier(channels.get(0).getSource(), "drawable",
                         getPackageName());
@@ -271,6 +313,15 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
                     tv.setTextColor(getResources().getColor(R.color.steel));
                     channelTextWrapper.addView(tv);
                 }
+
+                channelTag.setText(channels.get(0).getDisplayName());
+
+                channelViewAll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PurchaseChannelActivity.launchActivity(MovieDetailActivity.this, channels);
+                    }
+                });
             }
 
             @Override
@@ -298,7 +349,11 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
                     scheduleView = (TextView) findViewById(R.id.schedule);
                     cinemaView = (TextView) findViewById(R.id.cinema);
 
-                    dateView.setText(showtime.getMovies().get(0).getTitle() + " " + ViewUtil.getDate());
+                    if(showtime.getMovies().get(0).getTitle() != null) {
+                        dateView.setText(showtime.getMovies().get(0).getTitle() + " " + ViewUtil.getDate());
+                    }else{
+                        dateView.setText(ViewUtil.getDate());
+                    }
                     cinemaView.setText(Html.fromHtml(showtime.getMovies().get(0).getTheaters().get(0).getTheater() + "<br/><font color='#8e8e8e'>" + showtime.getMovies().get(0).getTheaters().get(0).getAddress() + "</font>"));
                     String schedule = "";
                     for(Schedule time : showtime.getMovies().get(0).getTheaters().get(0).getSchedule()){
@@ -331,7 +386,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         }
     }
 
-    private void loadVideos(ArrayList<Video> vidoes){
+    private void loadVideos(final ArrayList<Video> vidoes){
         if(vidoes.size() > 1 && vidoes.get(0) != null){
             Picasso.with(this).load("https://i.ytimg.com/vi/"+vidoes.get(0).getId()+"/mqdefault.jpg").into(screenShot1);
             videoTitle1.setText(vidoes.get(0).getTitle());
@@ -352,6 +407,44 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
             Picasso.with(this).load("https://i.ytimg.com/vi/"+vidoes.get(4).getId()+"/mqdefault.jpg").into(screenShot5);
             videoTitle5.setText(vidoes.get(4).getTitle());
         }
+
+        //TODO: change to hori listview
+
+        screenShot1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewUtil.intentChooser(MovieDetailActivity.this, new Intent(Intent.ACTION_VIEW, Uri.parse(vidoes.get(0).getLink())));
+            }
+        });
+
+        screenShot2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewUtil.intentChooser(MovieDetailActivity.this, new Intent(Intent.ACTION_VIEW, Uri.parse(vidoes.get(1).getLink())));
+            }
+        });
+
+        screenShot3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewUtil.intentChooser(MovieDetailActivity.this, new Intent(Intent.ACTION_VIEW, Uri.parse(vidoes.get(2).getLink())));
+            }
+        });
+
+        screenShot4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewUtil.intentChooser(MovieDetailActivity.this, new Intent(Intent.ACTION_VIEW, Uri.parse(vidoes.get(3).getLink())));
+            }
+        });
+
+        screenShot5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewUtil.intentChooser(MovieDetailActivity.this, new Intent(Intent.ACTION_VIEW, Uri.parse(vidoes.get(4).getLink())));
+            }
+        });
+
     }
 
     @Override
@@ -419,5 +512,19 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
     protected void onStop() {
         googleApiClient.disconnect();
         super.onStop();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

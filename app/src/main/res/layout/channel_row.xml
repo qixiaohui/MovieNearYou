@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="70dp">
+    <ImageView
+        android:layout_height="70dp"
+        android:layout_width="match_parent"
+        android:src="@drawable/vert_border_bg"
+        android:scaleType="fitXY" />
+    <RelativeLayout
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:id="@+id/channelWrapper">
+        <ImageView
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:id="@+id/channelLogo"
+            android:scaleType="centerCrop"
+            android:layout_width="@dimen/channelLogoWidth"
+            android:layout_height="@dimen/channelLogoHeight" />
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/channelTextWrapper"
+            android:layout_toRightOf="@+id/channelLogo"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+        </LinearLayout>
+        <TextView
+            android:id="@+id/channelTag"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="13sp"
+            android:textColor="@color/cement"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</FrameLayout>

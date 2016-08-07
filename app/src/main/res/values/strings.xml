@@ -26,4 +26,7 @@
     <string name="cast">Cast</string>
     <string name="similar">You may also like</string>
     <string name="channels">Purchase available on</string>
+    <string name="chooser">Please choose an app</string>
+    <string name="imdb">IMDB link</string>
+    <string name="search_hint">Search movie</string>
 </resources>
