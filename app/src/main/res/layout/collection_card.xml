@@ -1,0 +1,82 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_margin="4dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        card_view:cardCornerRadius="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/collectionWrapper" >
+        <ImageView
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="@dimen/collectionPosterWidth"
+            android:layout_height="@dimen/collectionPosterHeight"
+            android:id="@+id/collectionPoster"
+            android:scaleType="centerCrop" />
+        <RelativeLayout
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@id/collectionPoster"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_alignParentTop="true"
+                android:textColor="@color/cement"
+                android:textSize="15sp"
+                android:id="@+id/title"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_below="@+id/title"
+                android:id="@+id/rate"
+                android:text="Rated"
+                android:textColor="@color/divide"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
+            <TextView
+                android:layout_below="@+id/rate"
+                android:id="@+id/releaseDate"
+                android:text="Release data:"
+                android:textColor="@color/divide"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
+            <TextView
+                android:layout_below="@+id/releaseDate"
+                android:id="@+id/description"
+                android:text="Description:"
+                android:textColor="@color/divide"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/deleteBtn"
+            android:src="@drawable/delete"
+            android:scaleType="centerCrop" />
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

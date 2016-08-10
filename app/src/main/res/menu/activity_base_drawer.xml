@@ -32,5 +32,17 @@
                 android:title="@string/my_collection" />
         </menu>
     </item>
+    <item android:title="login">
+        <menu>
+            <item
+                android:id="@+id/login"
+                android:icon="@drawable/login"
+                android:title="@string/login" />
+            <item
+                android:id="@+id/signout"
+                android:icon="@drawable/logout"
+                android:title="@string/logout"/>
+        </menu>
+    </item>
 
 </menu>

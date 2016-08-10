@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "796425711404",
+    "firebase_url": "https://movienearme.firebaseio.com",
+    "project_id": "movienearme",
+    "storage_bucket": "movienearme.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796425711404:android:6ab4cb4a3df0987a",
+        "android_client_info": {
+          "package_name": "com.movienearyou.xiaohui.movienearyou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "796425711404-htsfjdom1vmddlr7mglt41v5eaj7k0c4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc0oCjMGVXRoNuLVayLciwtl4Z0WSQrmk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

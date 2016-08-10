@@ -29,4 +29,13 @@
     <string name="chooser">Please choose an app</string>
     <string name="imdb">IMDB link</string>
     <string name="search_hint">Search movie</string>
+    <string name="login">Signin</string>
+
+    <string name="facebook_app_id">1232215280122670</string>
+    <string name="signon">Sign in</string>
+    <string name="logout">Sign out</string>
+    <string name="emailLoginText">Or login with email</string>
+    <string name="loginRedirect">Take me to login</string>
+    <string name="cancel">Cancel</string>
+    <string name="mycollection">My collection</string>
 </resources>

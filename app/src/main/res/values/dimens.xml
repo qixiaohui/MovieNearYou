@@ -55,4 +55,7 @@
 
     <dimen name="castPicWidth">300dp</dimen>
     <dimen name="castPicHeight">300dp</dimen>
+
+    <dimen name="collectionPosterWidth">100dp</dimen>
+    <dimen name="collectionPosterHeight">160dp</dimen>
 </resources>

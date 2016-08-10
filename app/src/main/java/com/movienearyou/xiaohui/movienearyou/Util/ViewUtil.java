@@ -3,11 +3,14 @@ package com.movienearyou.xiaohui.movienearyou.Util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.movienearyou.xiaohui.movienearyou.R;
+import com.movienearyou.xiaohui.movienearyou.model.user.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,6 +19,7 @@ import java.util.Calendar;
  * Created by TQi on 7/23/16.
  */
 public class ViewUtil {
+    public static final String LOGINSTRING = "LOGINSTRING";
     public static int getColumn(Activity activity){
         Display display = activity.getWindowManager().getDefaultDisplay();
         DisplayMetrics outMetrics = new DisplayMetrics ();
@@ -45,5 +49,42 @@ public class ViewUtil {
         if (intent.resolveActivity(context.getPackageManager()) != null) {
             context.startActivity(chooser);
         }
+    }
+
+    public static void putData(Context context, String key, String value){
+        SharedPreferences sharedpreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
+    public static void removeData(Context context, String key){
+        SharedPreferences sharedpreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.remove(key);
+        editor.commit();
+    }
+
+    public static boolean checkContainsData(Context context, String key){
+        SharedPreferences sharedpreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        if(sharedpreferences.contains(key)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static String getData(Context context, String key){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        return sharedPreferences.getString(key, "");
+    }
+
+    public static User getUserPojo(FirebaseUser firebaseUser){
+        User user = new User();
+        user.setDisplayName(firebaseUser.getDisplayName());
+        user.setEmail(firebaseUser.getEmail());
+        user.setUid(firebaseUser.getUid());
+
+        return user;
     }
 }

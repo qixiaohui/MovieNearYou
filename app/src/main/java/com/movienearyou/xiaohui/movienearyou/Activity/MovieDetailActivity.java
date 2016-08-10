@@ -13,7 +13,10 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -41,6 +44,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
+import com.movienearyou.xiaohui.movienearyou.Application.AppController;
 import com.movienearyou.xiaohui.movienearyou.Fragment.CastDetailFragment;
 import com.movienearyou.xiaohui.movienearyou.Network.MoviesGateway;
 import com.movienearyou.xiaohui.movienearyou.Network.RestClient;
@@ -86,6 +90,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
     private int mParallaxImageHeight;
     private Result movie;
 
+    private CoordinatorLayout coordinateLayout;
     private ImageView poster;
     private TextView title;
     private TextView rate;
@@ -122,6 +127,9 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
     private ImageView channelLogo;
     private LinearLayout channelTextWrapper;
     private TextView channelViewAll;
+    private FloatingActionButton fab;
+    private ArrayList<Result> movies;
+    private Boolean movieAdded = false;
 
     public static void launchActivity(Activity fromActivity, Result movie){
         Intent intent = new Intent(fromActivity, MovieDetailActivity.class);
@@ -134,6 +142,8 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        movies = AppController.getInstance().getMovies();
+
         movie = new Gson().fromJson((String) getIntent().getExtras().get("movie"), Result.class);
 
         googleApiClient = new GoogleApiClient.Builder(this, this, this).addApi(LocationServices.API).build();
@@ -141,6 +151,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         createView();
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        mToolbarView.bringToFront();
     }
 
     private void createView(){
@@ -149,6 +160,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
+        coordinateLayout = (CoordinatorLayout) findViewById(R.id.coordinate);
         mImageView = (ImageView)findViewById(R.id.image);
         mToolbarView = (Toolbar)findViewById(R.id.toolbar);
         mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, getResources().getColor(R.color.colorPrimary)));
@@ -173,6 +185,28 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         channelWrapperRelative = (RelativeLayout) findViewById(R.id.channelWrapper);
         channelTag = (TextView) findViewById(R.id.channelTag);
         channelViewAll = (TextView) findViewById(R.id.channelViewAll);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        for(Result children : AppController.getInstance().getMovies()){
+            if(children.getId().intValue() == movie.getId().intValue()){
+                fab.setVisibility(View.GONE);
+                movieAdded = true;
+                break;
+            }
+        }
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar snackbar = Snackbar.make(coordinateLayout, "Movie successfully added", Snackbar.LENGTH_LONG);
+                snackbar.show();
+                fab.setVisibility(View.GONE);
+                AppController.getInstance().addMovie(movie);
+                movieAdded = true;
+                return;
+            }
+        });
 
         poster = (ImageView) findViewById(R.id.poster);
         title = (TextView) findViewById(R.id.title);
@@ -457,6 +491,17 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
     public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
         int baseColor = getResources().getColor(R.color.colorPrimary);
         float alpha = Math.min(1, (float) scrollY / mParallaxImageHeight);
+        if(!movieAdded) {
+            if (alpha >= 1) {
+                fab.setVisibility(View.GONE);
+            } else {
+                if (fab.getVisibility() == View.GONE) {
+                    fab.setVisibility(View.VISIBLE);
+                }
+            }
+
+            fab.setAlpha((1 - alpha));
+        }
         mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, baseColor));
         mToolbarView.setTitleTextColor(ScrollUtils.getColorWithAlpha(alpha, getResources().getColor(R.color.white)));
         ViewHelper.setTranslationY(mImageView, scrollY / 2);
