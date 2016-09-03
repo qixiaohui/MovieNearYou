@@ -32,6 +32,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
+import com.movienearyou.xiaohui.movienearyou.Application.AppController;
 import com.movienearyou.xiaohui.movienearyou.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.movienearyou.xiaohui.movienearyou.Util.ViewUtil;
@@ -106,6 +107,7 @@ public class SignonActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                AppController.getInstance().addFirebaseListener();
                 Toast.makeText(SignonActivity.this, "Signin success", Toast.LENGTH_LONG).show();
             }
 

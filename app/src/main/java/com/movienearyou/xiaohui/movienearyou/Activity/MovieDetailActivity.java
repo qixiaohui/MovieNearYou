@@ -2,6 +2,8 @@ package com.movienearyou.xiaohui.movienearyou.Activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -22,6 +24,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
@@ -127,6 +130,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
     private ImageView channelLogo;
     private LinearLayout channelTextWrapper;
     private TextView channelViewAll;
+    private TextView showtimeViewAll;
     private FloatingActionButton fab;
     private ArrayList<Result> movies;
     private Boolean movieAdded = false;
@@ -185,6 +189,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         channelWrapperRelative = (RelativeLayout) findViewById(R.id.channelWrapper);
         channelTag = (TextView) findViewById(R.id.channelTag);
         channelViewAll = (TextView) findViewById(R.id.channelViewAll);
+        showtimeViewAll = (TextView) findViewById(R.id.showtimeViewAll);
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
         for(Result children : AppController.getInstance().getMovies()){
@@ -356,6 +361,13 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
                         PurchaseChannelActivity.launchActivity(MovieDetailActivity.this, channels);
                     }
                 });
+
+                showtimeViewAll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                            
+                    }
+                });
             }
 
             @Override
@@ -388,6 +400,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
                     }else{
                         dateView.setText(ViewUtil.getDate());
                     }
+                    if(showtime.getMovies().get(0).getTheaters().size() == 0) return;
                     cinemaView.setText(Html.fromHtml(showtime.getMovies().get(0).getTheaters().get(0).getTheater() + "<br/><font color='#8e8e8e'>" + showtime.getMovies().get(0).getTheaters().get(0).getAddress() + "</font>"));
                     String schedule = "";
                     for(Schedule time : showtime.getMovies().get(0).getTheaters().get(0).getSchedule()){
@@ -521,6 +534,9 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.movie_detail_bar, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 

@@ -10,7 +10,7 @@ import retrofit.client.OkClient;
  * Created by qixiaohui on 4/4/16.
  */
 public class RestClient {
-    static final String BASE_URL = "https://ec2-54-191-216-140.us-west-2.compute.amazonaws.com";
+    static final String BASE_URL = "https://sheltered-peak-44325.herokuapp.com";
 
     public static MoviesGateway getMoviesGateway(){
         RestAdapter restAdapter = new RestAdapter.Builder()

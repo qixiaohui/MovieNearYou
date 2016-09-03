@@ -38,4 +38,5 @@
     <string name="loginRedirect">Take me to login</string>
     <string name="cancel">Cancel</string>
     <string name="mycollection">My collection</string>
+    <string name="noCollection">Seems like you haven\'t build your collection yet</string>
 </resources>

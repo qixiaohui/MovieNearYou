@@ -10,8 +10,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.movienearyou.xiaohui.movienearyou.Adapter.MyCollectionAdapter;
 import com.movienearyou.xiaohui.movienearyou.Application.AppController;
@@ -25,6 +27,7 @@ public class MyCollectionActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
+    private TextView noCollection;
 
     public static void launchActivity(Activity fromActivity){
         Intent intent = new Intent(fromActivity, MyCollectionActivity.class);
@@ -36,6 +39,7 @@ public class MyCollectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_collection);
         recyclerView = (RecyclerView) findViewById(R.id.movieList);
+        noCollection = (TextView) findViewById(R.id.noCollection);
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -55,7 +59,11 @@ public class MyCollectionActivity extends AppCompatActivity {
     }
 
     private void createView(){
-        recyclerView.setAdapter(new MyCollectionAdapter(MyCollectionActivity.this, AppController.getInstance().getMovies(), MyCollectionActivity.this));
+        if(AppController.getInstance().getMovies().size() > 0) {
+            noCollection.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            recyclerView.setAdapter(new MyCollectionAdapter(MyCollectionActivity.this, AppController.getInstance().getMovies(), MyCollectionActivity.this));
+        }
     }
 
     @Override

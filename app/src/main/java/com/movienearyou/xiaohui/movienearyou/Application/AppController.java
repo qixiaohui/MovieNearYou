@@ -26,34 +26,41 @@ public class AppController extends Application {
     public void onCreate() {
         super.onCreate();
         appInstance = new AppController();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        appInstance.ref = database.getReference("/users/"+uid+"/mycollection");
-        appInstance.ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                appInstance.uidMap.clear();
-                appInstance.movies.clear();
-                for(DataSnapshot children : dataSnapshot.getChildren()){
-                    Result movie = new Result();
-                    movie.setBackdropPath(children.child("backdrop_path").getValue(String.class));
-                    movie.setPosterPath(children.child("poster_path").getValue(String.class));
-                    movie.setTitle(children.child("title").getValue(String.class));
-                    movie.setVoteAverage(children.child("vote_average").getValue(Double.class));
-                    movie.setPopularity(children.child("popularity").getValue(Double.class));
-                    movie.setVoteCount(children.child("vote_count").getValue(Integer.class));
-                    movie.setOverview(children.child("overview").getValue(String.class));
-                    movie.setId(children.child("id").getValue(Integer.class));
-                    movie.setReleaseDate(children.child("release_date").getValue(String.class));
-                    appInstance.movies.add(movie);
-                    appInstance.uidMap.put(movie.getId(), children.getKey());
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        addFirebaseListener();
+    }
 
-            }
-        });
+    public void addFirebaseListener(){
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            appInstance.ref = database.getReference("/users/" + uid + "/mycollection");
+            appInstance.ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    appInstance.uidMap.clear();
+                    appInstance.movies.clear();
+                    for (DataSnapshot children : dataSnapshot.getChildren()) {
+                        Result movie = new Result();
+                        movie.setBackdropPath(children.child("backdrop_path").getValue(String.class));
+                        movie.setPosterPath(children.child("poster_path").getValue(String.class));
+                        movie.setTitle(children.child("title").getValue(String.class));
+                        movie.setVoteAverage(children.child("vote_average").getValue(Double.class));
+                        movie.setPopularity(children.child("popularity").getValue(Double.class));
+                        movie.setVoteCount(children.child("vote_count").getValue(Integer.class));
+                        movie.setOverview(children.child("overview").getValue(String.class));
+                        movie.setId(children.child("id").getValue(Integer.class));
+                        movie.setReleaseDate(children.child("release_date").getValue(String.class));
+                        appInstance.movies.add(movie);
+                        appInstance.uidMap.put(movie.getId(), children.getKey());
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     public ArrayList<Result> getMovies(){
@@ -87,6 +94,9 @@ public class AppController extends Application {
 
 
     public static synchronized AppController getInstance() {
+        if(appInstance == null){
+            appInstance = new AppController();
+        }
         return appInstance;
     }
 
