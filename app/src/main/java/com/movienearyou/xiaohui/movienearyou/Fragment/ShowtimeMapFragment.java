@@ -48,11 +48,17 @@ public class ShowtimeMapFragment extends Fragment {
         return view;
     }
 
+    public void invalidateeMap(Showtime showtime){
+        this.showtime = showtime;
+        initMap();
+    }
+
     private void initMap(){
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.cinemaLocation);
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                googleMap.clear();
                 Double[] lastKnownLocation = LocationUtil.getCurrentLocation(getContext());
                 googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(lastKnownLocation[0], lastKnownLocation[1]) , 9.5f) );
                 googleMap.setMyLocationEnabled(true);
@@ -61,7 +67,7 @@ public class ShowtimeMapFragment extends Fragment {
 
                 for(final Theater theater : showtime.getMovies().get(0).getTheaters()){
                     LocationAsyncTask locationAsyncTask = new LocationAsyncTask(googleMap, geocoder);
-                    locationAsyncTask.execute(theater.getAddress());
+                    locationAsyncTask.execute(theater.getTheater());
                 }
             }
         });

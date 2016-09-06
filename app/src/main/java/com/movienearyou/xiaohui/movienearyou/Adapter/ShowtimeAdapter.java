@@ -21,6 +21,8 @@ public class ShowtimeAdapter extends FragmentStatePagerAdapter {
     private FragmentManager fragmentManager;
     private List<String> titles;
     private Showtime showtime;
+    private ShowtimeListFragment showtimeListFragment;
+    private ShowtimeMapFragment showtimeMapFragment;
 
     public ShowtimeAdapter(FragmentManager fragmentManager, List<String> titles, Showtime showtime){
         super(fragmentManager);
@@ -29,16 +31,21 @@ public class ShowtimeAdapter extends FragmentStatePagerAdapter {
         this.showtime = showtime;
     }
 
+    public void setShowtime(Showtime showtime){
+        showtimeMapFragment.invalidateeMap(showtime);
+        showtimeListFragment.updateShowtime(showtime);
+    }
+
     @Override
     public Fragment getItem(int position) {
         if(position == 0){
-            ShowtimeListFragment showtimeListFragment = new ShowtimeListFragment();
+            showtimeListFragment = new ShowtimeListFragment();
             Bundle bundle = new Bundle();
             bundle.putString(SHOWTIME_BUNDLE, new Gson().toJson(showtime));
             showtimeListFragment.setArguments(bundle);
             return showtimeListFragment;
         }else if(position == 1){
-            ShowtimeMapFragment showtimeMapFragment = new ShowtimeMapFragment();
+            showtimeMapFragment = new ShowtimeMapFragment();
             Bundle bundle = new Bundle();
             bundle.putString(SHOWTIME_BUNDLE, new Gson().toJson(showtime));
             showtimeMapFragment.setArguments(bundle);

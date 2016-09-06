@@ -19,6 +19,10 @@ public class CinemaListAdapter extends RecyclerView.Adapter<CinemaListAdapter.Vi
         this.showtime = showtime;
     }
 
+    public void updateShowtime(Showtime showtime){
+        this.showtime = showtime;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cinema_row, null);

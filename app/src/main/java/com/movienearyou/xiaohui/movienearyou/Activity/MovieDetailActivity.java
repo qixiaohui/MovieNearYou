@@ -375,7 +375,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         MoviesGateway moviesGateway = RestClient.getMoviesGateway();
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
-            List<Address> addresses = geocoder.getFromLocation(lat, longi, 1);
+            final List<Address> addresses = geocoder.getFromLocation(lat, longi, 1);
             if(addresses.size() == 0) return;
             moviesGateway.getShowtime(movie.getTitle().replaceAll(" ", "+"), addresses.get(0).getPostalCode(), "0", new Callback<Showtime>() {
                 @Override
@@ -404,7 +404,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
                     showtimeViewAll.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ShowtimeActivity.launchActivity(MovieDetailActivity.this, showtime);
+                            ShowtimeActivity.launchActivity(MovieDetailActivity.this, showtime, movie.getTitle(), addresses.get(0));
                         }
                     });
                 }

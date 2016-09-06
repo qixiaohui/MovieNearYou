@@ -22,6 +22,7 @@ public class ShowtimeListFragment extends Fragment {
     private Showtime showtime;
     private RecyclerView cinemaList;
     private LinearLayoutManager linearLayoutManager;
+    private CinemaListAdapter cinemaListAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,12 +40,15 @@ public class ShowtimeListFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getContext());
         cinemaList.setLayoutManager(linearLayoutManager);
         cinemaList.setHasFixedSize(false);
-        CinemaListAdapter cinemaListAdapter = new CinemaListAdapter(showtime);
+        cinemaListAdapter = new CinemaListAdapter(showtime);
         cinemaList.setAdapter(cinemaListAdapter);
         return view;
     }
 
-
+    public void updateShowtime(Showtime showtime){
+        cinemaListAdapter.updateShowtime(showtime);
+        cinemaListAdapter.notifyDataSetChanged();
+    }
 
 
 }
