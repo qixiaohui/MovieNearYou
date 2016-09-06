@@ -58,4 +58,5 @@
 
     <dimen name="collectionPosterWidth">100dp</dimen>
     <dimen name="collectionPosterHeight">160dp</dimen>
+    <dimen name="recycler_margin">110dp</dimen>
 </resources>

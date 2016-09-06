@@ -361,13 +361,6 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
                         PurchaseChannelActivity.launchActivity(MovieDetailActivity.this, channels);
                     }
                 });
-
-                showtimeViewAll.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                            
-                    }
-                });
             }
 
             @Override
@@ -386,7 +379,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
             if(addresses.size() == 0) return;
             moviesGateway.getShowtime(movie.getTitle().replaceAll(" ", "+"), addresses.get(0).getPostalCode(), "0", new Callback<Showtime>() {
                 @Override
-                public void success(Showtime showtime, Response response) {
+                public void success(final Showtime showtime, Response response) {
                     Log.i("showtime", Integer.toString(showtime.getMovies().size()));
                     if(showtime.getMovies().size() == 0) return;
                     showtimeView = (LinearLayout) findViewById(R.id.showtime);
@@ -407,6 +400,13 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
                         schedule = schedule + time.getTime() + ", ";
                     }
                     scheduleView.setText(schedule);
+
+                    showtimeViewAll.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ShowtimeActivity.launchActivity(MovieDetailActivity.this, showtime);
+                        }
+                    });
                 }
 
                 @Override
