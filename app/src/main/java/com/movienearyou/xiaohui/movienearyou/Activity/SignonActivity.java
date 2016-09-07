@@ -95,11 +95,6 @@ public class SignonActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
-        mToolbarView = (Toolbar)findViewById(R.id.toolbar);
-        mToolbarView.setTitle(getResources().getString(R.string.channels));
-        mToolbarView.setTitleTextColor(getResources().getColor(R.color.white));
-        mToolbarView.setNavigationIcon(R.drawable.back);
-        setSupportActionBar(mToolbarView);
         loginBtn = (LoginButton) findViewById(R.id.login_button);
         loginBtn.setReadPermissions("email", "public_profile");
         callbackManager = CallbackManager.Factory.create();

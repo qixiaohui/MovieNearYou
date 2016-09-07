@@ -29,6 +29,7 @@ import com.movienearyou.xiaohui.movienearyou.Network.MoviesGateway;
 import com.movienearyou.xiaohui.movienearyou.Network.RestClient;
 import com.movienearyou.xiaohui.movienearyou.R;
 import com.movienearyou.xiaohui.movienearyou.Util.ViewUtil;
+import com.movienearyou.xiaohui.movienearyou.Views.RoundedImageView;
 import com.movienearyou.xiaohui.movienearyou.model.DataStore;
 import com.movienearyou.xiaohui.movienearyou.model.movies.Movies;
 import com.movienearyou.xiaohui.movienearyou.model.movies.Result;

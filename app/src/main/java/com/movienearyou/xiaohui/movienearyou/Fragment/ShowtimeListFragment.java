@@ -40,7 +40,7 @@ public class ShowtimeListFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getContext());
         cinemaList.setLayoutManager(linearLayoutManager);
         cinemaList.setHasFixedSize(false);
-        cinemaListAdapter = new CinemaListAdapter(showtime);
+        cinemaListAdapter = new CinemaListAdapter(showtime, getActivity());
         cinemaList.setAdapter(cinemaListAdapter);
         return view;
     }

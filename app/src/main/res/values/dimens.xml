@@ -58,5 +58,6 @@
 
     <dimen name="collectionPosterWidth">100dp</dimen>
     <dimen name="collectionPosterHeight">160dp</dimen>
-    <dimen name="recycler_margin">110dp</dimen>
+    <dimen name="recycler_margin">105dp</dimen>
+    <dimen name="ticketPadding">20dp</dimen>
 </resources>

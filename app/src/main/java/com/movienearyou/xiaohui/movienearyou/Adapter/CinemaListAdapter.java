@@ -1,11 +1,14 @@
 package com.movienearyou.xiaohui.movienearyou.Adapter;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.movienearyou.xiaohui.movienearyou.Activity.CinemaScheduleActivity;
 import com.movienearyou.xiaohui.movienearyou.R;
 import com.movienearyou.xiaohui.movienearyou.model.showtime.Showtime;
 
@@ -14,9 +17,11 @@ import com.movienearyou.xiaohui.movienearyou.model.showtime.Showtime;
  */
 public class CinemaListAdapter extends RecyclerView.Adapter<CinemaListAdapter.ViewHolder> {
     private Showtime showtime;
+    private Activity fromActivity;
 
-    public CinemaListAdapter(Showtime showtime){
+    public CinemaListAdapter(Showtime showtime, Activity fromActivity){
         this.showtime = showtime;
+        this.fromActivity = fromActivity;
     }
 
     public void updateShowtime(Showtime showtime){
@@ -30,9 +35,15 @@ public class CinemaListAdapter extends RecyclerView.Adapter<CinemaListAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.cinemaName.setText(showtime.getMovies().get(0).getTheaters().get(position).getTheater());
         holder.cinemaAddress.setText(showtime.getMovies().get(0).getTheaters().get(position).getAddress());
+        holder.cinemaRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CinemaScheduleActivity.launchActivity(fromActivity, showtime.getMovies().get(0).getTheaters().get(position).getSchedule());
+            }
+        });
     }
 
     @Override
@@ -41,12 +52,14 @@ public class CinemaListAdapter extends RecyclerView.Adapter<CinemaListAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
+        RelativeLayout cinemaRow;
         TextView cinemaName;
         TextView cinemaAddress;
         public ViewHolder(View view){
             super(view);
             cinemaName = (TextView) view.findViewById(R.id.cinemaName);
             cinemaAddress = (TextView) view.findViewById(R.id.cinemaAddress);
+            cinemaRow = (RelativeLayout) view.findViewById(R.id.cinemaRow);
         }
     }
 }
