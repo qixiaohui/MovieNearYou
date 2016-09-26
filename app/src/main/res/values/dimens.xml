@@ -18,6 +18,8 @@
     <dimen name="posterTextSize">16sp</dimen>
     <dimen name="infoText">13sp</dimen>
     <dimen name="videoDesc">10sp</dimen>
+    <dimen name="reviewDesc">12sp</dimen>
+    <dimen name="reviewAuthor">13sp</dimen>
     <dimen name="posterMarginTop">15dp</dimen>
     <dimen name="posterMarginHori">10dp</dimen>
 

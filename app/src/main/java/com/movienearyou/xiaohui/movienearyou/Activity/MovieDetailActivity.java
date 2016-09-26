@@ -24,6 +24,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -47,6 +49,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
+import com.movienearyou.xiaohui.movienearyou.Adapter.ReviewListAdapter;
 import com.movienearyou.xiaohui.movienearyou.Application.AppController;
 import com.movienearyou.xiaohui.movienearyou.Fragment.CastDetailFragment;
 import com.movienearyou.xiaohui.movienearyou.Network.MoviesGateway;
@@ -62,6 +65,7 @@ import com.movienearyou.xiaohui.movienearyou.model.credit.Credit;
 import com.movienearyou.xiaohui.movienearyou.model.credit.Crew;
 import com.movienearyou.xiaohui.movienearyou.model.movies.Movies;
 import com.movienearyou.xiaohui.movienearyou.model.movies.Result;
+import com.movienearyou.xiaohui.movienearyou.model.reviews.Reviews;
 import com.movienearyou.xiaohui.movienearyou.model.showtime.Movie;
 import com.movienearyou.xiaohui.movienearyou.model.showtime.Schedule;
 import com.movienearyou.xiaohui.movienearyou.model.showtime.Showtime;
@@ -134,6 +138,8 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
     private FloatingActionButton fab;
     private ArrayList<Result> movies;
     private Boolean movieAdded = false;
+    private RecyclerView reviewList;
+    private LinearLayout reviewLayout;
 
     public static void launchActivity(Activity fromActivity, Result movie){
         Intent intent = new Intent(fromActivity, MovieDetailActivity.class);
@@ -191,6 +197,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         channelViewAll = (TextView) findViewById(R.id.channelViewAll);
         showtimeViewAll = (TextView) findViewById(R.id.showtimeViewAll);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        reviewLayout = (LinearLayout) findViewById(R.id.reviews);
 
         for(Result children : AppController.getInstance().getMovies()){
             if(children.getId().intValue() == movie.getId().intValue()){
@@ -227,6 +234,8 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
         mScrollView.setScrollViewCallbacks(this);
 
+        reviewList = (RecyclerView) findViewById(R.id.reviewList);
+
         mParallaxImageHeight = getResources().getDimensionPixelSize(R.dimen.headerImageHeight);
 
         loadData();
@@ -234,6 +243,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         getCredit();
         getSimilar();
         getChannels();
+        getReviews();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
@@ -366,6 +376,25 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
             @Override
             public void failure(RetrofitError error) {
 
+            }
+        });
+    }
+
+    private void getReviews() {
+        MoviesGateway moviesGateway = RestClient.getMoviesGateway();
+        moviesGateway.getMovieReviews(movie.getId().toString(), new Callback<Reviews>() {
+            @Override
+            public void success(Reviews reviews, Response response) {
+                if(reviews.getResults().size() == 0) return;
+                reviewLayout.setVisibility(View.VISIBLE);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MovieDetailActivity.this);
+                reviewList.setLayoutManager(linearLayoutManager);
+                reviewList.setAdapter(new ReviewListAdapter(reviews));
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(TAG, error.getMessage().toString());
             }
         });
     }

@@ -8,6 +8,7 @@ import com.movienearyou.xiaohui.movienearyou.model.cast.Cast;
 import com.movienearyou.xiaohui.movienearyou.model.channels.Channel;
 import com.movienearyou.xiaohui.movienearyou.model.credit.Credit;
 import com.movienearyou.xiaohui.movienearyou.model.movies.Movies;
+import com.movienearyou.xiaohui.movienearyou.model.reviews.Reviews;
 import com.movienearyou.xiaohui.movienearyou.model.showtime.Showtime;
 import com.movienearyou.xiaohui.movienearyou.model.videos.Video;
 import com.squareup.okhttp.Call;
@@ -47,5 +48,8 @@ public interface MoviesGateway {
 
     @GET("/movies/search/{name}/{page}")
     void getMovieSearchResult(@Path("name") String name, @Path("page") int page, retrofit.Callback<Movies> callback);
+
+    @GET("/movie/review/{id}")
+    void getMovieReviews(@Path("id") String id, retrofit.Callback<Reviews> callback);
 
 }
