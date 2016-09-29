@@ -9,6 +9,7 @@
     android:id="@+id/detailInfo">
     <ImageView
         android:id="@+id/poster"
+        android:transitionName="poster"
         android:layout_marginTop="@dimen/posterMarginTop"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/posterMarginHori"

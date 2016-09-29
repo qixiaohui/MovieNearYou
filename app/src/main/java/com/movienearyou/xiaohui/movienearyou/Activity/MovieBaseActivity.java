@@ -267,6 +267,8 @@ public class MovieBaseActivity extends AppCompatActivity
                             updateNavMenu();
                         }})
                     .setNegativeButton(android.R.string.no, null).show();
+        } else if (id == R.id.news) {
+            MovieNewsActivity.launchActivity(MovieBaseActivity.this);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

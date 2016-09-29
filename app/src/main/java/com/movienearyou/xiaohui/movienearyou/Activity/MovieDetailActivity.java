@@ -7,11 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,20 +60,16 @@ import com.movienearyou.xiaohui.movienearyou.model.channels.Channel;
 import com.movienearyou.xiaohui.movienearyou.model.channels.Format;
 import com.movienearyou.xiaohui.movienearyou.model.credit.Cast;
 import com.movienearyou.xiaohui.movienearyou.model.credit.Credit;
-import com.movienearyou.xiaohui.movienearyou.model.credit.Crew;
 import com.movienearyou.xiaohui.movienearyou.model.movies.Movies;
 import com.movienearyou.xiaohui.movienearyou.model.movies.Result;
 import com.movienearyou.xiaohui.movienearyou.model.reviews.Reviews;
-import com.movienearyou.xiaohui.movienearyou.model.showtime.Movie;
 import com.movienearyou.xiaohui.movienearyou.model.showtime.Schedule;
 import com.movienearyou.xiaohui.movienearyou.model.showtime.Showtime;
 import com.movienearyou.xiaohui.movienearyou.model.videos.Video;
 import com.nineoldandroids.view.ViewHelper;
-import com.squareup.okhttp.internal.Util;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -145,6 +139,7 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         Intent intent = new Intent(fromActivity, MovieDetailActivity.class);
         intent.putExtra("movie", new Gson().toJson(movie));
         fromActivity.startActivity(intent);
+        fromActivity.overridePendingTransition(R.anim.activity_start_leave, R.anim.activity_start_enter);
     }
 
     @Override
@@ -612,9 +607,12 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
-            finish();
+            supportFinishAfterTransition();
+            MovieDetailActivity.this.overridePendingTransition(R.anim.activity_finish_leave, R.anim.activity_finish_enter);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    
 }

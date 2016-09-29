@@ -38,6 +38,7 @@ public class CinemaScheduleActivity extends AppCompatActivity {
         Intent  intent = new Intent(fromActivity, CinemaScheduleActivity.class);
         intent.putExtra(SCHEDULES, new Gson().toJson(schedules));
         fromActivity.startActivity(intent);
+        fromActivity.overridePendingTransition(R.anim.activity_start_leave, R.anim.activity_start_enter);
     }
 
     @Override
@@ -73,6 +74,7 @@ public class CinemaScheduleActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
             finish();
+            CinemaScheduleActivity.this.overridePendingTransition(R.anim.activity_finish_leave, R.anim.activity_finish_enter);
             return true;
         }
         return super.onOptionsItemSelected(item);

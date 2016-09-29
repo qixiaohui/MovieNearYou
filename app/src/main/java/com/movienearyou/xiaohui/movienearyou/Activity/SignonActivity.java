@@ -6,15 +6,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -52,6 +49,7 @@ public class SignonActivity extends AppCompatActivity {
     public static void launchActivity(Activity fromActivity){
         Intent intent = new Intent(fromActivity, SignonActivity.class);
         fromActivity.startActivity(intent);
+        fromActivity.overridePendingTransition(R.anim.activity_start_leave, R.anim.activity_start_enter);
     }
 
     @Override
@@ -74,6 +72,7 @@ public class SignonActivity extends AppCompatActivity {
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     ViewUtil.putData(SignonActivity.this, ViewUtil.LOGINSTRING, new Gson().toJson(ViewUtil.getUserPojo(user)));
                     finish();
+                    SignonActivity.this.overridePendingTransition(R.anim.activity_finish_leave, R.anim.activity_finish_enter);
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");

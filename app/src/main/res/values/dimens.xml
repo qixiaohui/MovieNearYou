@@ -62,4 +62,8 @@
     <dimen name="collectionPosterHeight">160dp</dimen>
     <dimen name="recycler_margin">105dp</dimen>
     <dimen name="ticketPadding">20dp</dimen>
+
+    <dimen name="newsCardImgHeight">200dp</dimen>
+    <dimen name="newsTitleSize">15sp</dimen>
+    <dimen name="newsContentImgHeight">220dp</dimen>
 </resources>

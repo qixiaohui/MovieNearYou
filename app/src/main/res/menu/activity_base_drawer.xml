@@ -30,6 +30,10 @@
                 android:id="@+id/collection"
                 android:icon="@drawable/collection"
                 android:title="@string/my_collection" />
+            <item
+                android:id="@+id/news"
+                android:icon="@drawable/ic_news"
+                android:title="@string/news" />
         </menu>
     </item>
     <item android:title="login">

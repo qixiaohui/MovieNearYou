@@ -142,6 +142,7 @@ public class SearchMovieResultActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
             finish();
+            SearchMovieResultActivity.this.overridePendingTransition(R.anim.activity_finish_leave, R.anim.activity_finish_enter);
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -9,6 +9,7 @@
     <ImageView
         android:layout_width="@dimen/movie_card_width"
         android:layout_height="@dimen/movie_card_height"
+        android:transitionName="poster"
         android:scaleType="centerCrop"
         android:src="@drawable/no_image"
         android:id="@+id/movieCard" />

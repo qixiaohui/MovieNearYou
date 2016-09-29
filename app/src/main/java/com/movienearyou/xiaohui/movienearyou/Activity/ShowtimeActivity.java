@@ -9,16 +9,12 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.movienearyou.xiaohui.movienearyou.Adapter.ShowtimeAdapter;
@@ -26,11 +22,8 @@ import com.movienearyou.xiaohui.movienearyou.Network.MoviesGateway;
 import com.movienearyou.xiaohui.movienearyou.Network.RestClient;
 import com.movienearyou.xiaohui.movienearyou.R;
 import com.movienearyou.xiaohui.movienearyou.Util.DateUtil;
-import com.movienearyou.xiaohui.movienearyou.Util.ViewUtil;
-import com.movienearyou.xiaohui.movienearyou.model.showtime.Schedule;
 import com.movienearyou.xiaohui.movienearyou.model.showtime.Showtime;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +55,7 @@ public class ShowtimeActivity extends AppCompatActivity {
         intent.putExtra(TITLE, title);
         intent.putExtra(ADDRESS, new Gson().toJson(address));
         fromActivity.startActivity(intent);
+        fromActivity.overridePendingTransition(R.anim.activity_start_leave, R.anim.activity_start_enter);
     }
 
     @Override
@@ -89,6 +83,7 @@ public class ShowtimeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                ShowtimeActivity.this.overridePendingTransition(R.anim.activity_finish_leave, R.anim.activity_finish_enter);
             }
         });
         setSupportActionBar(toolbar);
@@ -133,6 +128,7 @@ public class ShowtimeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
             finish();
+            ShowtimeActivity.this.overridePendingTransition(R.anim.activity_finish_leave, R.anim.activity_finish_enter);
             return true;
         }
         return super.onOptionsItemSelected(item);

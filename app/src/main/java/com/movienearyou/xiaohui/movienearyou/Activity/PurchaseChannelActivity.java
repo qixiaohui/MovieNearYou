@@ -5,17 +5,14 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.movienearyou.xiaohui.movienearyou.Adapter.ChannelListAdapter;
@@ -40,6 +37,7 @@ public class PurchaseChannelActivity extends AppCompatActivity {
         Intent intent = new Intent(fromActivity, PurchaseChannelActivity.class);
         intent.putExtra(CHANNEL, new Gson().toJson(channels));
         fromActivity.startActivity(intent);
+        fromActivity.overridePendingTransition(R.anim.activity_start_leave, R.anim.activity_start_enter);
     }
 
     @Override
@@ -75,6 +73,7 @@ public class PurchaseChannelActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
             finish();
+            PurchaseChannelActivity.this.overridePendingTransition(R.anim.activity_finish_leave, R.anim.activity_finish_enter);
             return true;
         }
         return super.onOptionsItemSelected(item);

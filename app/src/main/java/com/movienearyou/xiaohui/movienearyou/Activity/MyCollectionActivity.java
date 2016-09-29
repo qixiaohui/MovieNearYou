@@ -32,6 +32,7 @@ public class MyCollectionActivity extends AppCompatActivity {
     public static void launchActivity(Activity fromActivity){
         Intent intent = new Intent(fromActivity, MyCollectionActivity.class);
         fromActivity.startActivity(intent);
+        fromActivity.overridePendingTransition(R.anim.activity_start_leave, R.anim.activity_start_enter);
     }
 
     @Override
@@ -70,6 +71,7 @@ public class MyCollectionActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
             finish();
+            MyCollectionActivity.this.overridePendingTransition(R.anim.activity_finish_leave, R.anim.activity_finish_enter);
         }
         return super.onOptionsItemSelected(item);
     }
