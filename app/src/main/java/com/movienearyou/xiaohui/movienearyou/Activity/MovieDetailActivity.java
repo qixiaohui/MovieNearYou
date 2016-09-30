@@ -28,6 +28,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -614,5 +615,14 @@ public class MovieDetailActivity extends AppCompatActivity implements Observable
         return super.onOptionsItemSelected(item);
     }
 
-    
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            MovieDetailActivity.this.overridePendingTransition(R.anim.activity_finish_leave, R.anim.activity_finish_enter);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }

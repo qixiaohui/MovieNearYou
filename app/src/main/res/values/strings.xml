@@ -46,4 +46,5 @@
     <string name="cinemaHint">Click to view showtime of the cinema.</string>
     <string name="tickets">Tickets</string>
     <string name="googleTicket">https://www.google.com</string>
+    <string name="location_error">Can not retrieve last known location</string>
 </resources>

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -77,5 +78,15 @@ public class PurchaseChannelActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            PurchaseChannelActivity.this.overridePendingTransition(R.anim.activity_finish_leave, R.anim.activity_finish_enter);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

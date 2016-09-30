@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -117,5 +118,15 @@ public class MovieNewsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            MovieNewsActivity.this.overridePendingTransition(R.anim.activity_finish_leave, R.anim.activity_finish_enter);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

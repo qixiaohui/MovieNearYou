@@ -12,6 +12,9 @@ public class LocationUtil {
         Double [] location = new Double[2];
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if(lastKnownLocation == null) {
+            return null;
+        }
         location[0] = lastKnownLocation.getLatitude();
         location[1] = lastKnownLocation.getLongitude();
         return location;

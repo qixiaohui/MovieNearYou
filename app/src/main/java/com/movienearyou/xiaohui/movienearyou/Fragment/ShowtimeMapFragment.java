@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -60,6 +61,10 @@ public class ShowtimeMapFragment extends Fragment {
             public void onMapReady(GoogleMap googleMap) {
                 googleMap.clear();
                 Double[] lastKnownLocation = LocationUtil.getCurrentLocation(getContext());
+                if(lastKnownLocation == null) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.location_error), Toast.LENGTH_LONG).show();
+                    return;
+                }
                 googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(lastKnownLocation[0], lastKnownLocation[1]) , 9.5f) );
                 googleMap.setMyLocationEnabled(true);
                 final Geocoder geocoder = new Geocoder(getContext());
